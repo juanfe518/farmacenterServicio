@@ -40,16 +40,15 @@ public class FarmaciaController {
 	
 	// Metodo para agregar una farmacia
 	@PostMapping("/postfarmacia")
-	public ResponseEntity<String> addFarmacia(@RequestBody Farmacia farmacia) {
+	public ResponseEntity<Farmacia> addFarmacia(@RequestBody Farmacia farmacia) {
 		try {
 			// Se invova la interfaz que agragará una farmacia
 			iFarmaciaService.addFarmacia(farmacia);
 			// Si la incerción de la farmacia es correcta retorna un mensaje
-			return ResponseEntity.ok().body("Farmacia agregada correctamente");
+			return ResponseEntity.ok(farmacia);
 		}catch (Exception e) {
 			 // Manejar la excepción y realizar acciones necesarias
-		    String mensaje = "Error al agregar la farmacia";
-		    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensaje);
+			return ResponseEntity.ok(farmacia);
 		}
 	}
 	
